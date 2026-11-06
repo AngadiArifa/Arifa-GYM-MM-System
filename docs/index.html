@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> FitCore | Gym Membership Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">A</span><div>Arifa FITCORE<small>ANGADI ARIFA • OWNER</small></div></div>
+    <p class="nav-label">WORKSPACE</p>
+    <button class="nav-item active" data-view="dashboard">▦ <span>Dashboard</span></button>
+    <button class="nav-item" data-view="members">♙ <span>Members</span></button>
+    <button class="nav-item" data-view="plans">▤ <span>Membership Plans</span></button>
+    <button class="nav-item" data-view="subscriptions">◷ <span>Subscriptions</span></button>
+    <button class="nav-item" data-view="trainers">♧ <span>Trainers</span></button>
+    <button class="nav-item" data-view="assignments">◎ <span>Trainer Assignments</span></button>
+    <div class="sidebar-bottom"><div class="online-dot"></div> System Online <span>v1.0</span></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar"><div><p class="eyebrow">ANGADI ARIFA | GYM ADMINISTRATION</p><h1 id="pageTitle">Dashboard Overview</h1></div><div class="top-right"><span class="today" id="today"></span><div class="avatar">AA</div></div></header>
+    <section id="dashboard" class="view">
+      <div class="welcome"><div><span class="tag">FITNESS BUSINESS CONTROL CENTER</span><h2>Build stronger<br><em>membership journeys.</em></h2><p>Manage members, plans, subscriptions and trainer assignments from one place.</p></div><div class="welcome-icon">✦</div></div>
+      <div class="stats">
+        <article class="stat-card"><span class="stat-icon">♙</span><p>Total Members</p><strong id="statMembers">—</strong><small>Registered members</small></article>
+        <article class="stat-card"><span class="stat-icon">▤</span><p>Membership Plans</p><strong id="statPlans">—</strong><small>Available plans</small></article>
+        <article class="stat-card"><span class="stat-icon">✓</span><p>Active Subscriptions</p><strong id="statActive">—</strong><small>Paid and in date</small></article>
+        <article class="stat-card"><span class="stat-icon">◷</span><p>Expired Subscriptions</p><strong id="statExpired">—</strong><small>Past end date</small></article>
+      </div>
+      <div class="panel intro-panel"><div><p class="eyebrow">QUICK START</p><h3>Keep your gym organized.</h3><p>Start by adding members and membership plans. Then enroll members in a plan and assign a trainer.</p></div><button class="primary" onclick="showView('members')">Manage Members →</button></div>
+    </section>
+
+    <section id="members" class="view hidden">
+      <div class="section-head"><div><p class="eyebrow">MEMBER DIRECTORY</p><h2>Members</h2><p>Register and maintain gym member information.</p></div><button class="primary" onclick="prepareModal('member')">＋ Add Member</button></div>
+      <div class="panel"><div class="table-tools"><input id="memberSearch" placeholder="Search members..." oninput="filterTable('memberTable',this.value)"></div><div class="table-wrap"><table id="memberTable"><thead><tr><th>ID</th><th>Member</th><th>Email</th><th>Phone</th><th>Join Date</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+
+    <section id="plans" class="view hidden">
+      <div class="section-head"><div><p class="eyebrow">PRICING & PACKAGES</p><h2>Membership Plans</h2><p>Create and maintain the gym's membership options.</p></div><button class="primary" onclick="prepareModal('plan')">＋ Add Plan</button></div>
+      <div id="planCards" class="plan-grid"></div>
+      <div class="panel"><div class="table-wrap"><table id="planTable"><thead><tr><th>ID</th><th>Plan</th><th>Duration</th><th>Fee</th><th>Description</th><th>Actions</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+
+    <section id="subscriptions" class="view hidden">
+      <div class="section-head"><div><p class="eyebrow">ENROLLMENT & RENEWALS</p><h2>Subscriptions</h2><p>Track plan enrollment, payment and expiry dates.</p></div><button class="primary" onclick="prepareModal('subscription')">＋ New Subscription</button></div>
+      <div class="panel"><div class="table-wrap"><table id="subscriptionTable"><thead><tr><th>ID</th><th>Member</th><th>Plan</th><th>Start Date</th><th>Expiry Date</th><th>Payment</th><th>Status</th><th>Actions</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+
+    <section id="trainers" class="view hidden">
+      <div class="section-head"><div><p class="eyebrow">FITNESS TEAM</p><h2>Trainers</h2><p>Maintain trainer profiles and specialties.</p></div><button class="primary" onclick="prepareModal('trainer')">＋ Add Trainer</button></div>
+      <div class="panel"><div class="table-wrap"><table id="trainerTable"><thead><tr><th>ID</th><th>Trainer</th><th>Specialty</th><th>Phone</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+
+    <section id="assignments" class="view hidden">
+      <div class="section-head"><div><p class="eyebrow">PERSONAL TRAINING</p><h2>Trainer Assignments</h2><p>Connect members with their fitness trainers.</p></div><button class="primary" onclick="prepareModal('assignment')">＋ Assign Trainer</button></div>
+      <div class="panel"><div class="table-wrap"><table id="assignmentTable"><thead><tr><th>ID</th><th>Member</th><th>Trainer</th><th>Assigned Date</th><th>Actions</th></tr></thead><tbody></tbody></table></div></div>
+    </section>
+    <footer>FITCORE MEMBERSHIP MANAGER <span>Designed for efficient gym operations</span></footer>
+  </main>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop" onclick="backdropClose(event)"><div class="modal"><div class="modal-head"><div><p class="eyebrow">RECORD MANAGEMENT</p><h3 id="modalTitle">Add Record</h3></div><button class="close" onclick="closeModal()">×</button></div><form id="recordForm"><div id="formFields" class="form-grid"></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary" type="submit">Save Record</button></div></form></div></div>
+  <div id="toast" class="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
